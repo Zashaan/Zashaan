@@ -1,3 +1,3 @@
 - 👋 Hi, I’m @Zashaan
 - 👀 I’m interested in computer science, finance, and robotics
-- 📫 How to reach me zs2289@princeton.edu
+- 📫 How to reach me zashaan.shaik@princeton.edu
