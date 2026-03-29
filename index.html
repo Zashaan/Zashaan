@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GoodWorks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">GoodWorks</p>
+        <h1>Community help that feels personal, local, and easy to join.</h1>
+        <p class="hero-text">
+          Discover meaningful opportunities, create neighborhood posts, and help organizations rally people around causes that matter.
+        </p>
+        <div class="hero-actions">
+          <button class="button primary" data-scroll-target="#onboarding">Start onboarding</button>
+          <button class="button secondary" data-scroll-target="#home">Explore the feed</button>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="stat-card">
+          <span class="stat-label">This week</span>
+          <strong>37 matched opportunities</strong>
+          <p>Built around your causes, time, and preferred event style.</p>
+        </div>
+        <div class="stat-grid">
+          <article><span>Users</span><strong>Regular members</strong></article>
+          <article><span>Organizations</span><strong>Free posting</strong></article>
+          <article><span>Core loop</span><strong>Discover, RSVP, show up</strong></article>
+          <article><span>Extra layer</span><strong>Ask, help, host</strong></article>
+        </div>
+      </div>
+    </header>
+
+    <nav class="top-nav">
+      <button class="nav-chip active" data-view="onboarding">Onboarding</button>
+      <button class="nav-chip" data-view="home">Home</button>
+      <button class="nav-chip" data-view="post-builder">Create Post</button>
+      <button class="nav-chip" data-view="event-detail">Event Details</button>
+      <button class="nav-chip" data-view="my-events">My Events</button>
+      <button class="nav-chip" data-view="profile">Profile</button>
+      <button class="nav-chip" data-view="org-dashboard">Organization</button>
+    </nav>
+
+    <main>
+      <section class="view active" id="onboarding">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Onboarding flow</p>
+            <h2>Sign up, state your values, and let matching do the rest.</h2>
+          </div>
+          <div class="pill-row">
+            <span class="pill">Email / Google login</span>
+            <span class="pill">Cause matching</span>
+            <span class="pill">Availability-aware</span>
+          </div>
+        </div>
+
+        <div class="grid two-col onboarding-layout">
+          <article class="panel">
+            <div class="step-card">
+              <span class="step-number">1</span>
+              <div>
+                <h3>Choose how to sign in</h3>
+                <p>Create a regular account in seconds or continue with Google.</p>
+              </div>
+            </div>
+            <div class="login-options">
+              <button class="button primary wide">Continue with Email</button>
+              <button class="button tertiary wide">Continue with Google</button>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="step-card">
+              <span class="step-number">2</span>
+              <div>
+                <h3>Values form</h3>
+                <p>Tell GoodWorks how you want to help so the app can rank events by overlap.</p>
+              </div>
+            </div>
+
+            <form id="match-form" class="stack-form">
+              <label>
+                <span>Causes</span>
+                <div class="tag-selector" data-group="causes"></div>
+              </label>
+              <label>
+                <span>Availability</span>
+                <div class="tag-selector" data-group="availability"></div>
+              </label>
+              <label>
+                <span>Preferred event type</span>
+                <div class="tag-selector" data-group="eventTypes"></div>
+              </label>
+              <button type="submit" class="button primary">Update my matches</button>
+            </form>
+          </article>
+        </div>
+
+        <article class="panel match-results">
+          <div class="section-heading compact">
+            <div>
+              <p class="eyebrow">Matching engine</p>
+              <h3>Top opportunities for this user</h3>
+            </div>
+            <span class="match-explainer">Score = cause overlap + time fit + event type fit</span>
+          </div>
+          <div id="match-results" class="card-list"></div>
+        </article>
+      </section>
+
+      <section class="view" id="home">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Home screen</p>
+            <h2>Main feed with personalized, nearby, and time-sensitive discovery.</h2>
+          </div>
+          <div class="toggle-row">
+            <label class="switch">
+              <input type="checkbox" id="recommended-toggle" checked>
+              <span>Recommended for you</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="filter-bar panel">
+          <label><span>Cause</span><select id="cause-filter"></select></label>
+          <label>
+            <span>Date</span>
+            <select id="date-filter">
+              <option value="all">All dates</option>
+              <option value="48h">Within 48 hours</option>
+              <option value="weekend">Weekend</option>
+            </select>
+          </label>
+          <label>
+            <span>Distance</span>
+            <select id="distance-filter">
+              <option value="all">Any distance</option>
+              <option value="5">Within 5 miles</option>
+              <option value="15">Within 15 miles</option>
+            </select>
+          </label>
+          <label><span>Event type</span><select id="event-type-filter"></select></label>
+        </div>
+
+        <div class="grid home-grid">
+          <article class="panel">
+            <div class="section-heading compact"><div><p class="eyebrow">For you</p><h3>Personalized events</h3></div></div>
+            <div id="for-you-list" class="card-list"></div>
+          </article>
+          <article class="panel">
+            <div class="section-heading compact"><div><p class="eyebrow">Near you</p><h3>Location-based opportunities</h3></div></div>
+            <div id="near-you-list" class="card-list"></div>
+          </article>
+          <article class="panel">
+            <div class="section-heading compact"><div><p class="eyebrow">Happening soon</p><h3>Next 48 hours</h3></div></div>
+            <div id="soon-list" class="card-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="post-builder">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Create post</p>
+            <h2>Separate posting systems for community members and organizations.</h2>
+          </div>
+        </div>
+
+        <div class="grid two-col">
+          <article class="panel">
+            <div class="section-heading compact"><div><p class="eyebrow">Community post flow</p><h3>User post types</h3></div></div>
+            <label><span>User post type</span><select id="user-post-type"></select></label>
+            <form id="user-post-form" class="stack-form dynamic-form"></form>
+            <div id="user-post-preview" class="community-card preview-card"></div>
+          </article>
+
+          <article class="panel">
+            <div class="section-heading compact"><div><p class="eyebrow">Organization post flow</p><h3>Free organization tools</h3></div></div>
+            <label><span>Primary post type</span><select id="org-post-type"></select></label>
+            <form id="org-post-form" class="stack-form dynamic-form"></form>
+            <div id="org-post-preview" class="org-preview preview-card"></div>
+          </article>
+        </div>
+
+        <div class="grid two-col">
+          <article class="panel">
+            <div class="section-heading compact"><div><p class="eyebrow">Question posts</p><h3>Conversation-first cards</h3></div></div>
+            <div id="question-posts" class="card-list"></div>
+          </article>
+          <article class="panel">
+            <div class="section-heading compact"><div><p class="eyebrow">Help requests</p><h3>Action bar built around helping</h3></div></div>
+            <div id="help-posts" class="card-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="event-detail">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Event details</p>
+            <h2>High-context event page with RSVP mode, urgency, and organizer trust signals.</h2>
+          </div>
+        </div>
+        <div id="event-detail-card" class="detail-layout"></div>
+      </section>
+
+      <section class="view" id="my-events">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">My events</p>
+            <h2>Upcoming, past, and saved opportunities in one place.</h2>
+          </div>
+        </div>
+        <div class="grid three-col">
+          <article class="panel"><h3>Upcoming</h3><div id="upcoming-events" class="card-list"></div></article>
+          <article class="panel"><h3>Past</h3><div id="past-events" class="card-list"></div></article>
+          <article class="panel"><h3>Saved</h3><div id="saved-events" class="card-list"></div></article>
+        </div>
+      </section>
+
+      <section class="view" id="profile">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">User profile</p>
+            <h2>Public trust signals, impact tracking, and lightweight recognition.</h2>
+          </div>
+        </div>
+        <div id="profile-layout" class="grid profile-grid"></div>
+      </section>
+
+      <section class="view" id="org-dashboard">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Organization dashboard</p>
+            <h2>Public profile, event management, and non-event posting tools.</h2>
+          </div>
+        </div>
+        <div id="org-dashboard-layout" class="grid two-col"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="goodworks.js"></script>
+</body>
+</html>
